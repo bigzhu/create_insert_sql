@@ -30,8 +30,8 @@ def getColumns(table_name, schema='public'):
 
 
 def createInsert(names, old_names, table_name, old_table_name):
-    names = ','.join(names)
-    old_names = ','.join(old_names)
+    names = ',\n'.join(names)
+    old_names = ',\n'.join(old_names)
     sql = '''
 INSERT INTO public.%s(
     %s)
