@@ -41,9 +41,12 @@ SELECT %s FROM public_old.%s;
 
 
 def main():
-    table_name = 'transfers'
+    if len(sys.argv) == 3:
+        table_name = sys.argv[1]
+        old_table_name = sys.argv[2]
+    else:
+        print('you need run like: python %s table_name old_table_name' % sys.argv[0])
     names = getColumns(table_name)
-    old_table_name = 'transfer'
     old_names = getColumns(old_table_name, 'public_old')
     print(createInsert(names, old_names, table_name, old_table_name))
 
