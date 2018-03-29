@@ -42,7 +42,7 @@ SELECT %s FROM %s.%s;
 
 def main():
     to_schema = 'public'
-    from_schema = 'public_old'
+    from_schema = 'public'
     if len(sys.argv) == 5:
         table_name = sys.argv[1]
         old_table_name = sys.argv[2]
