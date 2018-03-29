@@ -29,26 +29,34 @@ def getColumns(table_name, schema='public'):
     return names
 
 
-def createInsert(names, old_names, table_name, old_table_name):
+def createInsert(names, old_names, table_name, old_table_name, to_schema, from_schema):
     names = ',\n'.join(names)
     old_names = ',\n'.join(old_names)
     sql = '''
-INSERT INTO public.%s(
+INSERT INTO %s.%s(
     %s)
-SELECT %s FROM public_old.%s;
-        ''' % (table_name, names, old_names, old_table_name)
+SELECT %s FROM %s.%s;
+        ''' % (to_schema, table_name, names, old_names, from_schema, old_table_name)
     return sql
 
 
 def main():
-    if len(sys.argv) == 3:
+    to_schema = 'public'
+    from_schema = 'public_old'
+    if len(sys.argv) == 5:
+        table_name = sys.argv[1]
+        old_table_name = sys.argv[2]
+        to_schema = sys.argv[3]
+        from_schema = sys.argv[4]
+    elif len(sys.argv) == 3:
         table_name = sys.argv[1]
         old_table_name = sys.argv[2]
     else:
         print('you need run like: python %s table_name old_table_name' % sys.argv[0])
+        exit(1)
     names = getColumns(table_name)
-    old_names = getColumns(old_table_name, 'public_old')
-    print(createInsert(names, old_names, table_name, old_table_name))
+    old_names = getColumns(old_table_name, from_schema)
+    print(createInsert(names, old_names, table_name, old_table_name, to_schema, from_schema))
 
 
 if __name__ == '__main__':

@@ -5,7 +5,7 @@ for postgresql
 need clone [lib_py](https://github.com/bigzhu/lib_py) in home path
 
 ##  use pipenv
-```
+```bash
 pipenv install
 ```
 
@@ -20,4 +20,13 @@ port=5432
 db_name=test
 user=test
 password=test
+```
+
+## run
+example: 
+
+In to pipenv and  run like this:
+```bash
+pipenv shell
+python main.py table_name old_table_name
 ```
