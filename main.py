@@ -18,7 +18,7 @@ def getColumns(table_name, schema='public'):
     and table_schema = '%s'
     order by column_name
     ''' % (table_name, schema)
-    #print(sql)
+    # print(sql)
 
     sql = text(sql)
 
@@ -29,9 +29,12 @@ def getColumns(table_name, schema='public'):
     return names
 
 
-def createInsert(names, old_names, table_name, old_table_name, to_schema, from_schema):
+def createInsert(names, table_name, old_table_name, to_schema, from_schema):
+    names = ['"%s"' % i for i in names]
+    # old_names = ['"%s"' % i for i in old_names]
     names = ',\n'.join(names)
-    old_names = ',\n'.join(old_names)
+    # old_names = ',\n'.join(old_names)
+    old_names = names
     sql = '''
 INSERT INTO %s.%s(
     %s)
@@ -52,11 +55,13 @@ def main():
         table_name = sys.argv[1]
         old_table_name = sys.argv[2]
     else:
-        print('you need run like: python %s table_name old_table_name' % sys.argv[0])
+        print('you need run like: python %s table_name old_table_name' %
+              sys.argv[0])
         exit(1)
     names = getColumns(table_name)
-    old_names = getColumns(old_table_name, from_schema)
-    print(createInsert(names, old_names, table_name, old_table_name, to_schema, from_schema))
+    # old_names = getColumns(old_table_name, from_schema)
+    print(createInsert(names, table_name,
+                       old_table_name, to_schema, from_schema))
 
 
 if __name__ == '__main__':
