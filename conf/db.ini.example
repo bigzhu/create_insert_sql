@@ -1,0 +1,6 @@
+[db]
+host=ip
+port=port
+db_name=db_name
+user=user
+password=password
