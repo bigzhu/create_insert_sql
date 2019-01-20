@@ -4,9 +4,14 @@ for postgresql
 ## use lib_py
 need clone [lib_py](https://github.com/bigzhu/lib_py) in home path
 
+```
+git clone https://github.com/bigzhu/lib_py ~/lib_py
+```
+
 ##  use pipenv
 ```bash
-pipenv install
+pip install pipenv
+pipenv --python 3.7 install
 ```
 
 ## config file
